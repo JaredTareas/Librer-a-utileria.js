@@ -50,7 +50,7 @@ Evidencia de instalación de la librería:
 
 ---
 
-## Uso con ejemplos de código embebido
+## Uso con ejemplos
 
 A continuación se muestran ejemplos reales del código de la librería y cómo se puede utilizar.
 
