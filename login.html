@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login con Validaciones</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+
+    <div class="contenedor">
+        <h1>Inicio de Sesión</h1>
+        <p>Validación de correo y contraseña usando utileria.js</p>
+
+        <form id="formLogin" novalidate>
+            <label for="correoDelLogin">Correo electrónico:</label>
+            <input type="text" id="correoDelLogin" placeholder="Ejemplo: jared@gmail.com">
+
+            <label for="passwordDeLogin">Contraseña:</label>
+            <input type="password" id="passwordDeLogin" placeholder="Ejemplo: Jared2026#">
+
+            <p id="mensajeLogin"></p>
+
+            <button type="submit">Iniciar sesión aquí</button>
+        </form>
+
+        <a href="./index.html">Regresar al formulario de registro</a>
+    </div>
+<script src="./js/utileria.js"></script>
+    <script>
+        const formLogin = document.getElementById("formLogin");
+        const mensajeLogin = document.getElementById("mensajeLogin");
+
+        formLogin.addEventListener("submit", function(evento) {
+            evento.preventDefault();
+
+            const correo = document.getElementById("correoDelLogin").value.trim();
+            const password = document.getElementById("passwordDeLogin").value.trim();
+
+            if (!validarCorreo(correo)) {
+                mensajeLogin.textContent = "El correo electrónico no es válido.";
+                mensajeLogin.className = "error";
+                return;
+            }
+
+            if (!validarPassword(password)) {
+                mensajeLogin.textContent = "La contraseña debe tener mínimo 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.";
+                mensajeLogin.className = "error";
+                return;
+            }
+
+            mensajeLogin.textContent = "Inicio de sesión validado correctamente.";
+            mensajeLogin.className = "correcto";
+        });
+    </script>
+
+</body>
+</html>

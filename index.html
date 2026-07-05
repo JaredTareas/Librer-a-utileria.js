@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Validaciones</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+
+    <div class="contenedor">
+        <h1>Formulario de Registro</h1>
+        <p>Ejemplo usando la librería de validaciones en JavaScript.</p>
+
+        <form id="formulario" novalidate>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" placeholder="Ejemplo: Jared">
+
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" placeholder="Ejemplo: García">
+
+            <label for="correo">Correo electrónico:</label>
+            <input type="text" id="correo" placeholder="Ejemplo: correo@gmail.com">
+
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono" maxlength="10" placeholder="Ejemplo: 9513571146">
+
+            <label for="codigoPostal">Código postal:</label>
+            <input type="text" id="codigoPostal" maxlength="5" placeholder="Ejemplo: 68000">
+
+            <label for="fechaNacimiento">Fecha de nacimiento:</label>
+            <input type="date" id="fechaNacimiento">
+
+            <p id="mensaje"></p>
+
+            <button type="submit">Validar formulario</button>
+        </form>
+
+        <a href="./login.html">Ir al login</a>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="contenido-modal">
+            <h2>Edad calculada</h2>
+            <p id="edadTexto"></p>
+            <button id="cerrarModal">Cerrar</button>
+        </div>
+    </div>
+    
+<script src="./js/utileria.js"></script>
+
+    <script>
+        const formulario = document.getElementById("formulario");
+        const mensaje = document.getElementById("mensaje");
+        const modal = document.getElementById("modal");
+        const edadTexto = document.getElementById("edadTexto");
+        const cerrarModal = document.getElementById("cerrarModal");
+
+        formulario.addEventListener("submit", function(evento) {
+            evento.preventDefault();
+
+            const nombre = document.getElementById("nombre").value.trim();
+            const apellido = document.getElementById("apellido").value.trim();
+            const correo = document.getElementById("correo").value.trim();
+            const telefono = document.getElementById("telefono").value.trim();
+            const codigoPostal = document.getElementById("codigoPostal").value.trim();
+            const fechaNacimiento = document.getElementById("fechaNacimiento").value;
+
+            if (!soloLetras(nombre)) {
+                mensaje.textContent = "El nombre solo debe contener letras.";
+                mensaje.className = "error";
+                return;
+            }
+
+            if (!soloLetras(apellido)) {
+                mensaje.textContent = "El apellido solo debe contener letras.";
+                mensaje.className = "error";
+                return;
+            }
+
+            if (!validarCorreo(correo)) {
+                mensaje.textContent = "El correo electrónico no es válido.";
+                mensaje.className = "error";
+                return;
+            }
+
+            if (!validarLongitud(telefono, 10) || telefono.length < 10 || !/^[0-9]+$/.test(telefono)) {
+                mensaje.textContent = "El teléfono debe tener exactamente 10 dígitos numéricos.";
+                mensaje.className = "error";
+                return;
+            }
+
+            if (!validarCodigoPostal(codigoPostal)) {
+                mensaje.textContent = "El código postal debe tener exactamente 5 dígitos.";
+                mensaje.className = "error";
+                return;
+            }
+
+            if (fechaNacimiento === "") {
+                mensaje.textContent = "Debes seleccionar una fecha de nacimiento.";
+                mensaje.className = "error";
+                return;
+            }
+
+            if (!esMayorDeEdad(fechaNacimiento)) {
+                mensaje.textContent = "Debes ser mayor de edad para registrarte.";
+                mensaje.className = "error";
+                return;
+            }
+
+            const edad = calcularEdad(fechaNacimiento);
+            const usuario = generarUsuario(nombre, apellido);
+
+            mensaje.textContent = "Formulario validado correctamente.";
+            mensaje.className = "correcto";
+
+            edadTexto.innerHTML = "Tu edad es: " + edad + " años.<br>Usuario generado: " + usuario;
+            modal.style.display = "flex";
+        });
+
+        cerrarModal.addEventListener("click", function() {
+            modal.style.display = "none";
+        });
+    </script>
+
+</body>
+</html>
