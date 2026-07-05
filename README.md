@@ -398,14 +398,6 @@ En esta captura se muestra el modal con la edad calculada y el usuario generado 
 
 ## Video demo
 
-En el siguiente video se muestra una demostración corta de la librería.
-
-El video explica:
-
-- Qué problema resuelve la librería.
-- Cómo se instala usando la etiqueta `<script>`.
-- Cómo se usan sus funciones.
-- El resultado en acción dentro del formulario, login y consola.
 
 [Ver video demo en YouTube](https://youtu.be/DfasdUjv6JQ)
 
